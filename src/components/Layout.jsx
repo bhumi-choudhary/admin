@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import Sidebar from '/home/user/admin/src/components/Sidebar.jsx';
-import Header from '/home/user/admin/src/components/Header.jsx';
+import Sidebar from './Sidebar';
+import Header from './Header';
 import { Box, Menu, MenuItem, Typography, IconButton } from '@mui/material';
 import { useTheme, styled } from '@mui/material/styles';
 const drawerWidth = 240;

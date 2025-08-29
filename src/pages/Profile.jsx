@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
 
-import ProfileDetails from '/home/user/admin/src/components/ProfileDetails.jsx';
-import ChangePasswordForm from '/home/user/admin/src/components/ChangePasswordForm.jsx';
+import ProfileDetails from '../components/ProfileDetails';
+
 
 
 const Profile = () => {

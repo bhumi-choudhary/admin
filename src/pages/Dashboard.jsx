@@ -12,9 +12,9 @@ import { styled } from '@mui/material/styles';
 // Components
 import TopCards from '../components/TopCards';
 import StatsSection from '../components/StatsSection';
-import RecentOrdersTable from '/home/user/admin/src/components/RecentOrdersTable.jsx';
-import WeeklySalesChart from '/home/user/admin/src/components/WeeklySalesChart.jsx';
-import BestSellingProductsChart from '/home/user/admin/src/components/BestSellingProductsChart.jsx';
+import RecentOrdersTable from '../components/RecentOrdersTable';
+import WeeklySalesChart from '../components/WeeklySalesChart';
+import BestSellingProductsChart from '../components/BestSellingProductsChart.jsx';
 
 // Styled Card
 const StyledCard = styled(Card)(({ theme }) => ({

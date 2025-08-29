@@ -1,42 +1,51 @@
 import { useState } from 'react';
 import { Box, CssBaseline, Toolbar } from '@mui/material';
-import Header from '/home/user/admin/src/components/Header.jsx';
-import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import { ToastContainer } from 'react-toastify';
+
+// Pages
 import Reviews from './pages/Reviews.jsx';
 import Customers from './pages/Customers.jsx';
 import Profile from './pages/Profile.jsx';
 import Settings from './pages/Settings.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
-import Sellers from '/home/user/admin/src/pages/Sellers.jsx';
-import Vendors from '/home/user/admin/src/pages/Vendors.jsx';
-import Staff from './pages/Staff.jsx'; // Import Staff
-import Login from '/home/user/admin/src/pages/Login.jsx';
-import Layout from '/home/user/admin/src/components/Layout.jsx';
+import Login from './pages/Login.jsx';
+import Vendors from './pages/Vendors.jsx';
+import Staff from './pages/Staff.jsx';
+import Products from './pages/Products.jsx';
+import AddProduct from './pages/AddProduct.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import OrderDetails from './pages/OrderDetails.jsx';
+import Orders from './pages/Orders.jsx';
+import EditProduct from './pages/EditProduct.jsx';
+import ProductDetails from './pages/ProductDetails.jsx';
+import Invoices from './pages/Invoices.jsx';
+import ViewInvoice from './pages/ViewInvoice.jsx';
+import ViewCustomer from './pages/ViewCustomer.jsx';
+import VendorDetails from './pages/VendorDetails.jsx';
+import ViewStaff from './pages/ViewStaff.jsx';
+import AddStaff from './pages/AddStaff.jsx';
+import EditStaffRolesPage from './pages/EditStaffRolesPage.jsx';
+import Coupons from './pages/Coupons.jsx';
+import AddCoupon from './pages/AddCoupon.jsx';
+import Sellers from './pages/Sellers.jsx';
+
+// Contexts
+import { ThemeProvider as CustomThemeProvider } from './contexts/ThemeContext.jsx';
+import { ProductProvider } from './contexts/ProductContext.jsx';
+
+// MUI + Router
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider as CustomThemeProvider } from '/home/user/admin/src/contexts/ThemeContext.jsx'; // Import your custom ThemeProvider
-import Products from '/home/user/admin/src/pages/Products.jsx';
-import AddProduct from '/home/user/admin/src/pages/AddProduct.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import OrderDetails from '/home/user/admin/src/pages/OrderDetails.jsx'; // Import OrderDetails
-import Orders from '/home/user/admin/src/pages/Orders.jsx'; // Import Orders
-import EditProduct from '/home/user/admin/src/pages/EditProduct.jsx'; // Import EditProduct
-import ProductDetails from '/home/user/admin/src/pages/ProductDetails.jsx'; // Import ProductDetails
-import Invoices from '/home/user/admin/src/pages/Invoices.jsx'; // Import Invoices
-import ViewInvoice from '/home/user/admin/src/pages/ViewInvoice.jsx'; // Import ViewInvoice
-import ViewCustomer from '/home/user/admin/src/pages/ViewCustomer.jsx'; // Import ViewCustomer
-import VendorDetails from '/home/user/admin/src/pages/VendorDetails.jsx'; // Import VendorDetails
-import ViewStaff from '/home/user/admin/src/pages/ViewStaff.jsx'; // Import ViewStaff
-import AddStaff from '/home/user/admin/src/pages/AddStaff.jsx'; // Import AddStaff
-import EditStaffRolesPage from '/home/user/admin/src/pages/EditStaffRolesPage.jsx'; // Import EditStaffRolesPage
-import Coupons from '/home/user/admin/src/pages/Coupons.jsx'; // Import Coupons
-import AddCoupon from '/home/user/admin/src/pages/AddCoupon.jsx'; // Import AddCoupon
-import { ProductProvider } from '/home/user/admin/src/contexts/ProductContext.jsx';
+
+// ⚠️ Layout component ko import karna mat bhoolna
+import Layout from './components/Layout.jsx';
+
 const drawerWidth = 240;
 
 function App() {
   const [open, setOpen] = useState(true); // Sidebar open/close state
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
+
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
@@ -58,9 +67,9 @@ function App() {
         peach: '#ffccbc',
         lavender: '#e1bee7',
         color: {
-          main: '#FF9800', // A standard orange color
-          contrastText: '#FFFFFF', // White text for contrast
-          dark: '#F57C00', // A darker shade of orange
+          main: '#FF9800',
+          contrastText: '#FFFFFF',
+          dark: '#F57C00',
         },
         red: '#ffcdd2',
         orange: '#ffe0b2',
@@ -144,13 +153,13 @@ function App() {
   theme = responsiveFontSizes(theme);
 
   return (
-    <CustomThemeProvider> {/* Wrap with your custom ThemeProvider */}
-      <ProductProvider> {/* Wrap the main application content with ProductProvider */}
-        <ThemeProvider theme={theme}> {/* Wrap with Material UI ThemeProvider */}
+    <CustomThemeProvider>
+      <ProductProvider>
+        <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
             {/* Public Routes */}
-            <Route path="/dashboard" element={<Navigate to="/admin/dashboard" replace />} /> {/* Redirect from /dashboard */}
+            <Route path="/dashboard" element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
@@ -165,39 +174,39 @@ function App() {
                   toggleDarkMode={toggleDarkMode}
                   darkMode={darkMode}
                 />
-              }>
+              }
+            >
               <Route index element={<Dashboard />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="products" element={<Products />} />
               <Route path="add-product" element={<AddProduct />} />
-              <Route path="products-detail/:productId" element={<ProductDetails />} /> {/* Add Product Details Route */}
-              <Route path="edit-product/:productId" element={<EditProduct />} /> {/* Add Edit Product Route */}
+              <Route path="products-detail/:productId" element={<ProductDetails />} />
+              <Route path="edit-product/:productId" element={<EditProduct />} />
               <Route path="orders" element={<Orders />} />
-              <Route path="order-details" element={<OrderDetails />} /> {/* Add Order Details Route */}
-              <Route path="coupons" element={<Coupons />} /> {/* Add Coupons Route */}
-              <Route path="add-coupon" element={<AddCoupon />} /> {/* Add Add Coupon Route */}
+              <Route path="order-details" element={<OrderDetails />} />
+              <Route path="coupons" element={<Coupons />} />
+              <Route path="add-coupon" element={<AddCoupon />} />
               <Route path="reviews" element={<Reviews />} />
               <Route path="customers" element={<Customers />} />
               <Route path="vendors" element={<Vendors />} />
-              <Route path="vendors-detail/:id" element={<VendorDetails />} /> {/* Add Vendor Details Route */}
+              <Route path="vendors-detail/:id" element={<VendorDetails />} />
               <Route path="profile" element={<Profile />} />
-              <Route path="staff" element={<Staff />} /> {/* Add Staff Route */}
-              <Route path="staff/edit/:staffId" element={<EditStaffRolesPage />} /> {/* Add Edit Staff Roles Route */}
-              <Route path="add-staff" element={<AddStaff />} /> {/* Add Add Staff Route */}
-              <Route path="staff/view/:staffId" element={<ViewStaff />} /> {/* Add View Staff Route */}
+              <Route path="staff" element={<Staff />} />
+              <Route path="staff/edit/:staffId" element={<EditStaffRolesPage />} />
+              <Route path="add-staff" element={<AddStaff />} />
+              <Route path="staff/view/:staffId" element={<ViewStaff />} />
               <Route path="settings" element={<Settings />} />
               <Route path="sellers" element={<Sellers />} />
-              <Route path="customer/view/:customerId" element={<ViewCustomer />} /> {/* Add View Customer Route */}
-              <Route path="invoices" element={<Invoices />} /> {/* Add Invoices Route */}
-              <Route path="invoices/:invoiceId" element={<ViewInvoice />} /> {/* Add View Invoice Route */}
+              <Route path="customer/view/:customerId" element={<ViewCustomer />} />
+              <Route path="invoices" element={<Invoices />} />
+              <Route path="invoices/:invoiceId" element={<ViewInvoice />} />
             </Route>
           </Routes>
+          <ToastContainer />
         </ThemeProvider>
-        <ToastContainer /> {/* Add ToastContainer here */}
       </ProductProvider>
-    </CustomThemeProvider >
+    </CustomThemeProvider>
   );
 }
 
 export default App;
-

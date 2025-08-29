@@ -1,8 +1,8 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CustomerStatsCards from '/home/user/admin/src/components/CustomerStatsCards.jsx'; // Assuming the path based on previous interaction
-import CustomerListTable from '/home/user/admin/src/components/CustomerListTable.jsx'; // Import the CustomerListTable component
+import CustomerStatsCards from '../components/CustomerStatsCards'; // Assuming the path based on previous interaction
+import CustomerListTable from '../components/CustomerListTable.jsx'; // Import the CustomerListTable component
 
 function Customers() {
   return (

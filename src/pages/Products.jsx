@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
-import { ProductContext } from '/home/user/admin/src/contexts/ProductContext.jsx';
+import { ProductContext } from '../contexts/ProductContext';
 import { IconButton, TextField, useMediaQuery, useTheme, Box } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 function Products() {
