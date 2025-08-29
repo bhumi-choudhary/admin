@@ -8,7 +8,7 @@ import Settings from './pages/Settings.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import Sellers from '/home/user/admin/src/pages/Sellers.jsx';
 import Vendors from '/home/user/admin/src/pages/Vendors.jsx';
-import Staff from './pages/Staff.jsx'; // Import Staff
+import Staff from './pages/Staff.jsx';
 import Login from '/home/user/admin/src/pages/Login.jsx';
 import Layout from '/home/user/admin/src/components/Layout.jsx';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
