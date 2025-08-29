@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Box, CssBaseline, Toolbar } from '@mui/material';
-import Header from '/home/user/admin/src/components/Header.jsx';
-import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import {CssBaseline } from '@mui/material';
+import { ToastContainer } from 'react-toastify'; 
 import Reviews from './pages/Reviews.jsx';
 import Customers from './pages/Customers.jsx';
 import Profile from './pages/Profile.jsx';
