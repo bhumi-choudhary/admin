@@ -196,7 +196,6 @@ function App() {
               <Route path="add-staff" element={<AddStaff />} />
               <Route path="staff/view/:staffId" element={<ViewStaff />} />
               <Route path="settings" element={<Settings />} />
-              <Route path="sellers" element={<Sellers />} />
               <Route path="customer/view/:customerId" element={<ViewCustomer />} />
               <Route path="invoices" element={<Invoices />} />
               <Route path="invoices/:invoiceId" element={<ViewInvoice />} />
