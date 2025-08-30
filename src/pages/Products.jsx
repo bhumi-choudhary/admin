@@ -9,13 +9,13 @@ import Button from '@mui/material/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-
 import { ProductContext } from '../contexts/ProductContext';
 import { IconButton, TextField, useMediaQuery, useTheme, Box } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
+
 function Products() {
   const navigate = useNavigate();
-  const { products, deleteProduct } = useContext(ProductContext);
+  const { products: contextProducts, deleteProduct } = useContext(ProductContext);
   const productsTableRef = useRef(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
@@ -25,6 +25,61 @@ function Products() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(7); // Set limit to 7 items per page
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  // Dummy products agar context empty ho
+  const products =
+    Array.isArray(contextProducts) && contextProducts.length > 0
+      ? contextProducts
+      : [
+          {
+            id: 1,
+            name: 'T-Shirt',
+            price: 15.99,
+            stockLeft: 20,
+            sold: 5,
+            category: 'Clothing',
+            rating: 4.5,
+            reviews: 10,
+            image: '',
+            sizes: ['S', 'M', 'L'],
+          },
+          {
+            id: 2,
+            name: 'Jeans',
+            price: 35.0,
+            stockLeft: 15,
+            sold: 8,
+            category: 'Clothing',
+            rating: 4.2,
+            reviews: 7,
+            image: '',
+            sizes: ['M', 'L', 'XL'],
+          },
+          {
+            id: 3,
+            name: 'Sneakers',
+            price: 50.0,
+            stockLeft: 10,
+            sold: 3,
+            category: 'Footwear',
+            rating: 4.8,
+            reviews: 12,
+            image: '',
+            sizes: ['8', '9', '10'],
+          },
+          {
+            id: 4,
+            name: 'Cap',
+            price: 10.0,
+            stockLeft: 30,
+            sold: 12,
+            category: 'Accessories',
+            rating: 4.0,
+            reviews: 5,
+            image: '',
+            sizes: [],
+          },
+        ];
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
@@ -66,23 +121,17 @@ function Products() {
     setPage(newPage);
   };
 
-
-  const filteredProducts = (Array.isArray(products) ? products : []).filter((product) =>
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="container mx-auto p-6">
-
-
       <ToastContainer position="top-right" autoClose={5000} />
       <div className="rounded-2xl p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-8 mt-3 flex-wrap gap-4">
-          {/* Left Side Heading */}
           <h2 className="text-3xl font-bold text-gray-800">All Product List</h2>
-
-          {/* Right Side Search + Button */}
           <div className="flex items-center gap-4 flex-wrap">
             <TextField
               label="Search Products"
@@ -92,7 +141,6 @@ function Products() {
               onChange={(e) => setSearchQuery(e.target.value)}
               sx={{ minWidth: 220 }}
             />
-
             <button
               className="bg-blue-500 hover:bg-blue-700 shadow-md text-white font-semibold py-2 px-5 rounded-xl transition duration-200"
               onClick={() => navigate('/admin/add-product')}
@@ -101,7 +149,6 @@ function Products() {
             </button>
           </div>
         </div>
-
 
         {/* Table */}
         <div className="overflow-x-auto" ref={productsTableRef}>
@@ -127,7 +174,7 @@ function Products() {
               </thead>
               <tbody className="text-gray-700 text-sm">
                 {filteredProducts
-                  .slice((page - 1) * rowsPerPage, page * rowsPerPage) // Slice data for current page
+                  .slice((page - 1) * rowsPerPage, page * rowsPerPage)
                   .map((product) => (
                     <tr
                       key={product.id}
@@ -143,14 +190,19 @@ function Products() {
                       </td>
                       <td className="py-4 px-6 flex items-center">
                         <img
-                          src={product.image || 'https://sp.yimg.com/ib/th/id/OIP.fLToAFZjw4l7mIZGyaPR3QHaLH?pid=Api&w=148&h=148&c=7&dpr=2&rs=1'}
+                          src={
+                            product.image ||
+                            'https://sp.yimg.com/ib/th/id/OIP.fLToAFZjw4l7mIZGyaPR3QHaLH?pid=Api&w=148&h=148&c=7&dpr=2&rs=1'
+                          }
                           alt={product.name}
                           className="w-12 h-12 rounded-lg shadow mr-4"
                         />
                         <div>
                           <p className="font-bold text-gray-900">{product.name}</p>
                           <p className="text-gray-500 text-xs">
-                            {product.sizes?.length > 0 ? `Size: ${product.sizes.join(', ')}` : 'No sizes specified'}
+                            {product.sizes?.length > 0
+                              ? `Size: ${product.sizes.join(', ')}`
+                              : 'No sizes specified'}
                           </p>
                         </div>
                       </td>
@@ -169,10 +221,18 @@ function Products() {
                       </td>
                       <td className="py-4 px-6 text-center">
                         <div className="flex items-center justify-center space-x-2">
-                          <IconButton color="primary" size="large" onClick={() => navigate(`/admin/products-detail/${product.id}`)}>
+                          <IconButton
+                            color="primary"
+                            size="large"
+                            onClick={() => navigate(`/admin/products-detail/${product.id}`)}
+                          >
                             <EyeIcon className="w-4 h-4" />
                           </IconButton>
-                          <IconButton color="warning" size="large" onClick={() => navigate(`/admin/edit-product/${product.id}`)}>
+                          <IconButton
+                            color="warning"
+                            size="large"
+                            onClick={() => navigate(`/admin/edit-product/${product.id}`)}
+                          >
                             <PencilIcon className="w-4 h-4" />
                           </IconButton>
                           <IconButton color="error" size="large" onClick={() => handleOpenDialog(product.id)}>
