@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { Box, Menu, MenuItem, Typography, IconButton } from '@mui/material';
-import { useTheme, styled } from '@mui/material/styles';
-const drawerWidth = 240;
+import { Box, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 const Layout = () => {
-  const [open, setOpen] = useState(true); // Sidebar state
-  const [darkMode, setDarkMode] = useState(false); // Dark mode state
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [open, setOpen] = useState(!isMobile);
+  const [darkMode, setDarkMode] = useState(false);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (isMobile) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, [isMobile]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -24,24 +31,9 @@ const Layout = () => {
     setDarkMode((prev) => !prev);
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-  const theme = useTheme();
-
   return (
-    <>
     <Box sx={{ display: 'flex' }}>
-      {/* Sidebar */}
       <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
-
-      {/* Main Content */}
       <Box
         component="main"
         sx={{
@@ -51,7 +43,6 @@ const Layout = () => {
           transition: 'margin 0.3s ease',
         }}
       >
-        {/* Header */}
         <Header
           open={open}
           handleDrawerOpen={handleDrawerOpen}
@@ -59,12 +50,10 @@ const Layout = () => {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-
-        {/* Page Content */}
         <Outlet />
       </Box>
     </Box>
-    </>
   );
 };
+
 export default Layout;

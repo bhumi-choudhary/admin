@@ -28,6 +28,18 @@ import { useTheme } from "@mui/material/styles";
 const Coupons = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const [openImageDialog, setOpenImageDialog] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setOpenImageDialog(true);
+  };
+
+  const handleCloseImageDialog = () => {
+    setOpenImageDialog(false);
+    setSelectedImage("");
+  };
 
   const products = [
     {
@@ -229,7 +241,8 @@ const Coupons = () => {
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-12 h-12 rounded-md object-cover"
+                          className="w-12 h-12 rounded-md object-cover cursor-pointer"
+                          onClick={() => handleImageClick(product.image)}
                         />
                         <div>
                           <Typography variant="body1" className="font-medium">
@@ -327,6 +340,13 @@ const Coupons = () => {
                 Delete
               </Button>
             </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Image Zoom Dialog */}
+        <Dialog open={openImageDialog} onClose={handleCloseImageDialog}>
+          <DialogContent>
+            <img src={selectedImage} alt="Product" style={{ width: '100%' }} />
           </DialogContent>
         </Dialog>
       </Container>
